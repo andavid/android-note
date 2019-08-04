@@ -2,15 +2,12 @@ package com.andavid.touchevent.demo;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.andavid.touchevent.demo.Static;
+import com.orhanobut.logger.Logger;
 
 public class View1 extends View {
-  private static final String TAG = Static.TAG4;
-
   public View1(Context context) {
     super(context);
   }
@@ -24,14 +21,22 @@ public class View1 extends View {
   }
 
   @Override
-  public boolean dispatchTouchEvent(MotionEvent ev) {
-    Log.i(TAG, Static.dispatchTouchEvent + ev.getAction());
-    return super.dispatchTouchEvent(ev);
+  public boolean dispatchTouchEvent(MotionEvent event) {
+    if (event.getAction() == MotionEvent.ACTION_DOWN) {
+      Logger.d("ACTION_DOWN");
+    } else if (event.getAction() == MotionEvent.ACTION_UP) {
+      Logger.d("ACTION_UP");
+    }
+    return super.dispatchTouchEvent(event);
   }
 
   @Override
   public boolean onTouchEvent(MotionEvent event) {
-    Log.i(TAG, Static.onTouchEvent + event.getAction());
+    if (event.getAction() == MotionEvent.ACTION_DOWN) {
+      Logger.d("ACTION_DOWN");
+    } else if (event.getAction() == MotionEvent.ACTION_UP) {
+      Logger.d("ACTION_UP");
+    }
     return super.onTouchEvent(event);
 //        return true;
   }

@@ -2,13 +2,12 @@ package com.andavid.touchevent.demo;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.widget.RelativeLayout;
 
-public class RootView extends RelativeLayout {
-  private static final String TAG = Static.TAG2;
+import com.orhanobut.logger.Logger;
 
+public class RootView extends RelativeLayout {
   public RootView(Context context) {
     super(context);
   }
@@ -22,20 +21,32 @@ public class RootView extends RelativeLayout {
   }
 
   @Override
-  public boolean dispatchTouchEvent(MotionEvent ev) {
-    Log.i(TAG, Static.dispatchTouchEvent + ev.getAction());
-    return super.dispatchTouchEvent(ev);
+  public boolean dispatchTouchEvent(MotionEvent event) {
+    if (event.getAction() == MotionEvent.ACTION_DOWN) {
+      Logger.d("ACTION_DOWN");
+    } else if (event.getAction() == MotionEvent.ACTION_UP) {
+      Logger.d("ACTION_UP");
+    }
+    return super.dispatchTouchEvent(event);
   }
 
   @Override
-  public boolean onInterceptTouchEvent(MotionEvent ev) {
-    Log.i(TAG, Static.onInterceptTouchEvent + ev.getAction());
-    return super.onInterceptTouchEvent(ev);
+  public boolean onInterceptTouchEvent(MotionEvent event) {
+    if (event.getAction() == MotionEvent.ACTION_DOWN) {
+      Logger.d("ACTION_DOWN");
+    } else if (event.getAction() == MotionEvent.ACTION_UP) {
+      Logger.d("ACTION_UP");
+    }
+    return super.onInterceptTouchEvent(event);
   }
 
   @Override
   public boolean onTouchEvent(MotionEvent event) {
-    Log.i(TAG, Static.onTouchEvent + event.getAction());
+    if (event.getAction() == MotionEvent.ACTION_DOWN) {
+      Logger.d("ACTION_DOWN");
+    } else if (event.getAction() == MotionEvent.ACTION_UP) {
+      Logger.d("ACTION_UP");
+    }
     return super.onTouchEvent(event);
   }
 }
