@@ -28,6 +28,8 @@ public class View1 extends View {
       Logger.d("ACTION_UP");
     }
     return super.dispatchTouchEvent(event);
+//    return true;
+//    return false;
   }
 
   @Override
@@ -38,6 +40,7 @@ public class View1 extends View {
       Logger.d("ACTION_UP");
     }
     return super.onTouchEvent(event);
-//        return true;
+//    return true;
+//    return false;
   }
 }

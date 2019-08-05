@@ -32,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
       Logger.d("ACTION_UP");
     }
     return super.dispatchTouchEvent(event);
+//    return true;
+//    return false;
   }
 
   @Override
@@ -42,5 +44,7 @@ public class MainActivity extends AppCompatActivity {
       Logger.d("ACTION_UP");
     }
     return super.onTouchEvent(event);
+//    return true;
+//    return false;
   }
 }

@@ -28,6 +28,8 @@ public class ViewGroupA extends RelativeLayout {
       Logger.d("ACTION_UP");
     }
     return super.dispatchTouchEvent(event);
+//    return true;
+//    return false;
   }
 
   @Override
@@ -38,7 +40,8 @@ public class ViewGroupA extends RelativeLayout {
       Logger.d("ACTION_UP");
     }
     return super.onInterceptTouchEvent(event);
-//        return true;
+//    return true;
+//    return false;
   }
 
   @Override
@@ -49,6 +52,7 @@ public class ViewGroupA extends RelativeLayout {
       Logger.d("ACTION_UP");
     }
     return super.onTouchEvent(event);
-//        return true;
+//    return true;
+//    return false;
   }
 }
