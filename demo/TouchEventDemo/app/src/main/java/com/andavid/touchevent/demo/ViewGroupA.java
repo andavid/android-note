@@ -24,6 +24,8 @@ public class ViewGroupA extends RelativeLayout {
   public boolean dispatchTouchEvent(MotionEvent event) {
     if (event.getAction() == MotionEvent.ACTION_DOWN) {
       Logger.d("ACTION_DOWN");
+      // 禁止父亲拦截事件，后续的 MOVE 和 UP 事件不会调用 RootView 的 onInterceptTouchEvent 方法
+      getParent().requestDisallowInterceptTouchEvent(true);
     } else if (event.getAction() == MotionEvent.ACTION_UP) {
       Logger.d("ACTION_UP");
     }
