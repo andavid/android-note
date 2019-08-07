@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         } else if (event.getAction() == MotionEvent.ACTION_UP) {
           Logger.d("View1 onTouch ACTION_UP");
         }
-        return false;
+        return true;
       }
     });
 
