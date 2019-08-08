@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
+import android.os.Looper;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -11,6 +13,7 @@ import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.FormatStrategy;
 import com.orhanobut.logger.Logger;
 import com.orhanobut.logger.PrettyFormatStrategy;
+import java.util.concurrent.Semaphore;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -37,10 +40,85 @@ public class MainActivity extends AppCompatActivity {
     findViewById(R.id.btn_start).setOnClickListener(new OnClickListener() {
       @Override
       public void onClick(View v) {
+        createThread1();
+        createThread2();
         createThreadWithHandlerThread();
         startIntentService();
       }
     });
+  }
+
+  Handler mHandler1;
+  public void createThread1() {
+    final Semaphore semaphore = new Semaphore(1);
+
+    try {
+      // 请求一个信号量
+      semaphore.acquire();
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+
+    new Thread(new Runnable() {
+      @Override
+      public void run() {
+        Looper.prepare();
+        mHandler1 = new Handler() {
+          @Override
+          public void handleMessage(Message msg) {
+            Logger.d("Handler1 handle message: " + msg.toString());
+          }
+        };
+        // 初始化完成，释放信号量
+        Logger.d("release semaphore");
+        semaphore.release();
+        Looper.loop();
+      }
+    }).start();
+
+    if (mHandler1 == null) {
+      try {
+        Logger.d("try to acquire semaphore");
+        semaphore.acquire();
+        Logger.d("success to acquire semaphore");
+      } catch (InterruptedException e) {
+        e.printStackTrace();
+      }
+    }
+    mHandler1.sendEmptyMessage(1);
+  }
+
+  Handler mHandler2;
+  public void createThread2() {
+    final Object lock = new Object();
+
+    new Thread(new Runnable() {
+      @Override
+      public void run() {
+        Looper.prepare();
+        mHandler2 = new Handler() {
+          @Override
+          public void handleMessage(Message msg) {
+            Logger.d("Handler2 handle message: " + msg.toString());
+          }
+        };
+        synchronized (lock) {
+          lock.notify();
+        }
+        Looper.loop();
+      }
+    }).start();
+
+    if (mHandler2 == null) {
+      synchronized (lock) {
+        try {
+          lock.wait();
+        } catch (InterruptedException e) {
+          e.printStackTrace();
+        }
+      }
+    }
+    mHandler2.sendEmptyMessage(2);
   }
 
   public void createThreadWithHandlerThread() {
