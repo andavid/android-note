@@ -1,3 +1,7 @@
+# VSCode files
+.project
+.settings
+
 # OSX files
 .DS_Store
 
