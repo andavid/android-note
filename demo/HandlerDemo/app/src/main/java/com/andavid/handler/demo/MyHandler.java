@@ -6,12 +6,8 @@ import android.os.Message;
 import com.orhanobut.logger.Logger;
 
 /**
- * <pre>
- *     author : djk
- *     e-mail : daijianke@abchina.com
- *     time   : 2019/08/08
- *     desc   :
- * </pre>
+ * @author djk
+ * @since 2019/08/08
  */
 public class MyHandler extends Handler {
 
