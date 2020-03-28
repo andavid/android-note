@@ -23,6 +23,7 @@ public class MainApplication extends Application {
     initLogger();
     initCrashHandler();
     startCrashCatch();
+    startAnrWatch();
   }
 
   private void initLogger() {
@@ -70,6 +71,11 @@ public class MainApplication extends Application {
         }
       }
     });
+  }
+
+  private void startAnrWatch() {
+    AnrWatch anrWatchDog = new AnrWatch();
+    anrWatchDog.start();
   }
 
 }
