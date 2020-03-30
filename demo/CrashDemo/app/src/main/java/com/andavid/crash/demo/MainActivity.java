@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         printAllThread();
 
         try {
-          Thread.sleep(1000 * 10);
+          Thread.sleep(1000 * 10 * 2);
         } catch (InterruptedException e) {
           e.printStackTrace();
         }

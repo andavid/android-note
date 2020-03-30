@@ -13,6 +13,7 @@ public class AnrWatch extends Thread {
   private final Handler mUiHandler;
   private final long mTimeoutInterval;
   private volatile int mTick;
+  private volatile int mLastAnrTick;
   private final Runnable mTicker;
   private boolean mIsStop;
 
@@ -47,10 +48,11 @@ public class AnrWatch extends Thread {
           return;
         }
 
-        if (mTick != lastTick) {
+        if (mTick != lastTick || mTick == mLastAnrTick) {
           continue;
         }
 
+        mLastAnrTick = mTick;
         Logger.d("App Not Responding");
         Thread mainThread = Looper.getMainLooper().getThread();
         StackTraceElement[] trace = mainThread.getStackTrace();
@@ -60,7 +62,7 @@ public class AnrWatch extends Thread {
         }
         Logger.d(sb.toString());
 
-        return;
+        continue;
       }
 
       return;
