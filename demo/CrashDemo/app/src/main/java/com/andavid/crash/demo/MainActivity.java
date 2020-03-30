@@ -17,8 +17,22 @@ public class MainActivity extends AppCompatActivity {
     findViewById(R.id.btn_crash).setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        Logger.d("test crash");
-        "crash".substring(10);
+        Logger.d("test main thread crash");
+        throw new RuntimeException("click exception...");
+      }
+    });
+
+    findViewById(R.id.btn_thread_crash).setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        Logger.d("test new thread crash");
+        new Thread() {
+          @Override
+          public void run() {
+            super.run();
+            throw new RuntimeException("new thread exception...");
+          }
+        }.start();
       }
     });
 
