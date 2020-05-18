@@ -1,4 +1,5 @@
 # VSCode files
+.classpath
 .project
 .settings
 
